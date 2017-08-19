@@ -1,13 +1,13 @@
 class ItemsController < ApplicationController
-  before_action :requre_user_logged_in
+  before_action :require_user_logged_in
 
   def show
-    @item = Item.find(params:[:id])
+    @item = Item.find(params[:id])
     @want_users = @item.want_users
   end
   
   def new
-    @item = []
+    @items = []
 
     @keyword = params[:keyword]
     if @keyword
@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
       results.each do |result|
         # 扱いやすいように Item としてインスタンスを作成する（保存しない）
         item = Item.find_or_initialize_by(read(result)) 
-        @item << item
+        @items << item
       end
     end
   end
